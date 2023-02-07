@@ -1,13 +1,11 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const profileController = require('../controller/profile');
+const homecontroller = require("../controllers/home_controller");
+const usersController = require("../controllers/users_controller");
 
-
-router.get('/', profileController.profile);
-
-router.use('/users', require('./users'));
-
-router.use('/notes', require('./notes'));
-
+console.log("router is running");
+router.get('/', homecontroller.home);
+router.use("/users", require('./users'));
+router.use("/notes", require('./notes'));
 
 module.exports = router;

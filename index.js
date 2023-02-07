@@ -1,25 +1,18 @@
-const express = require('express');
-
+const express = require("express");
 const app = express();
+const expressEjsLayouts = require("express-ejs-layouts");
+require('./config/mongoose');
 
-const port = 8000;
+app.use(expressEjsLayouts);
+app.use("/", require("./routes/index.js"));
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
 
-// setting  ejs engine view
+app.set("view engine", "ejs");
+app.set("views", "./views");
+app.use(express.static('./assets'));
 
-app.set('view engine', 'ejs');
-app.set('views', './views');
-
-
-// express use routes
-
-app.use('/', require('./routes/index'));
-
-
-
-app.listen(port, (err) => {
-    if (err) {
-        console.log(`'Erro in server : ${err}`);
-        return;
-    }
-    console.log(`Server is working on a port : ${port}`);
-})
+app.listen(8000, function(err) {
+    if (err) { console.log("Error in starting the server: ", err); return; }
+    console.log("Server is running on 8000");
+});
